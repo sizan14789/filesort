@@ -4,21 +4,21 @@ from zip_handler import handle_zip
 
 def handle_file(file) -> None:
     create_base()
-    destination = None
+    dest = None
 
     file_type = file.suffix
 
     if file_type in SOFTWARE:
-        destination = software_path
+        dest = software_path
     elif file_type in COMPRESSED:
-        destination = compressed_path
+        dest = compressed_path
     elif file_type in VIDEOS: # to be handled later in depth
-        destination = videos_path
+        dest = videos_path
     elif file_type in DOCUMENTS:
-        destination = documents_path
+        dest = documents_path
 
-    if destination:
-        file.rename(destination / file.name)
+    if dest:
+        file.rename(dest / file.name)
         return
     
     if file.suffix ==".zip":
@@ -27,4 +27,3 @@ def handle_file(file) -> None:
 for file in BASE.iterdir():
     if file.is_file():
         handle_file(file)
-
