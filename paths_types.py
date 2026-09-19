@@ -30,7 +30,11 @@ AUDIO = {
     ".m4a", ".wma", ".opus", ".aiff", ".ape"
 }
 
-BASE = Path.cwd()
+# production
+BASE = Path.home() / "Downloads"
+
+# dev
+# BASE = Path.cwd()
 
 # wallpaper, images, audio left
 videos_path = BASE / "videos"
@@ -40,6 +44,7 @@ compressed_path = BASE / "compressed"
 images_path = BASE / "images"
 audios_path = BASE / "audios"
 
+extracted_zip_path = compressed_path / "extracted_zips"
 zip_path = BASE / "zip"
 
 # creates base folder in  case they don't exist
@@ -51,3 +56,4 @@ def create_base():
     images_path.mkdir(exist_ok=True)
     audios_path.mkdir(exist_ok=True)
     zip_path.mkdir(exist_ok=True)
+    extracted_zip_path.mkdir(exist_ok=True)

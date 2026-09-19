@@ -1,14 +1,14 @@
 from pathlib import Path
-from paths_types import BASE, VIDEOS, videos_path, zip_path
+from paths_types import BASE, VIDEOS, videos_path, zip_path, extracted_zip_path
 from zipfile import ZipFile
 import shutil
 
 # move zip
-def move_zip(zip_file):
-    dest = zip_path / zip_file.name
+def move_zip(zip_file, dest_path):
+    dest = dest_path / zip_file.name
     i = 1
     while dest.exists():
-        dest = zip_path / (f"{zip_file.stem}({i}){zip_file.suffix}")
+        dest = dest_path / (f"{zip_file.stem}({i}){zip_file.suffix}")
         i+=1
     zip_file.rename(dest)
 
@@ -98,7 +98,7 @@ def handle_zip(zip_file):
 
     # decision making 
     if other_file_count > videos_count or not videos_count:
-        move_zip(zip_file)
+        move_zip(zip_file, zip_path)
         return
 
     # rooted / nested movie
@@ -114,4 +114,4 @@ def handle_zip(zip_file):
         unzip_to_new(zip_file)
     
     # move the remaining zip 
-    move_zip(zip_file)
+    move_zip(zip_file, extracted_zip_path)

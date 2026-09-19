@@ -38,9 +38,6 @@ def handle_file(file: Path) -> None:
     
     if file.suffix ==".zip":
         handle_zip(file)
-    
-# for package 
-# BASE = BASE.parent
 
 for file in BASE.iterdir():
     if file.is_file():
