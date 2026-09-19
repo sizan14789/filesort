@@ -1,29 +1,47 @@
 from pathlib import Path
-from paths_types import BASE, SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, videos_path, software_path, documents_path, compressed_path, create_base
+from paths_types import BASE, SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, software_path, documents_path, compressed_path, images_path, audios_path, create_base
 from zip_handler import handle_zip
 
-def handle_file(file) -> None:
+# takes file and destination, checks if duplicate exists, renames and moves
+def check_dest_move(file: Path, dest_folder: Path) -> None:
+    dest = dest_folder / file.name
+    i = 1
+    while dest.exists():
+        dest = dest_folder / f"{file.stem}({i}){file.suffix}"
+        i+=1
+    
+    file.rename(dest)
+
+# handle every file
+def handle_file(file: Path) -> None:
     create_base()
-    dest = None
+    dest_folder = None
 
     file_type = file.suffix
 
     if file_type in SOFTWARE:
-        dest = software_path
+        dest_folder = software_path
     elif file_type in COMPRESSED:
-        dest = compressed_path
+        dest_folder = compressed_path
     elif file_type in VIDEOS: # to be handled later in depth
-        dest = videos_path
+        dest_folder = videos_path
     elif file_type in DOCUMENTS:
-        dest = documents_path
+        dest_folder = documents_path
+    elif file_type in IMAGES:
+        dest_folder = images_path
+    elif file_type in AUDIO:
+        dest_folder = audios_path
 
-    if dest:
-        file.rename(dest / file.name)
+    if dest_folder:
+        check_dest_move(file, dest_folder)
         return
     
     if file.suffix ==".zip":
         handle_zip(file)
     
+# for package 
+# BASE = BASE.parent
+
 for file in BASE.iterdir():
     if file.is_file():
         handle_file(file)
