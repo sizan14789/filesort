@@ -1,5 +1,8 @@
 from pathlib import Path
 
+prod=1
+single_instance=1
+
 SOFTWARE = {
     ".exe", ".msi", ".appx", ".deb", ".rpm", ".dmg",
     ".apk", ".bat", ".cmd", ".sh"
@@ -34,7 +37,8 @@ AUDIO = {
 BASE = Path.home() / "Downloads"
 
 # dev
-# BASE = Path.cwd()
+if env=="dev":
+    BASE = Path.cwd()
 
 # wallpaper, images, audio left
 videos_path = BASE / "videos"

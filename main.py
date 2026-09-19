@@ -1,5 +1,5 @@
 from pathlib import Path
-from paths_types import BASE, SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, software_path, documents_path, compressed_path, images_path, audios_path, create_base
+from paths_types import prod, single_instance, BASE, SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, software_path, documents_path, compressed_path, images_path, audios_path, create_base
 from zip_handler import handle_zip
 
 # takes file and destination, checks if duplicate exists, renames and moves
@@ -39,6 +39,23 @@ def handle_file(file: Path) -> None:
     if file.suffix == ".zip":
         handle_zip(file)
 
-for file in BASE.iterdir():
-    if file.is_file():
-        handle_file(file)
+# sorting previous files before watchdog starts
+def sort_all_once():
+    for file in BASE.iterdir():
+        if file.is_file():
+            handle_file(file)
+
+if prod and single_instance:
+    print(f"Sorting {BASE}...")
+
+sort_all_once()
+
+if prod and single_instance:
+    print("Done!")
+    input()
+
+if single_instance:
+    exit()
+
+# watchdog from here
+
