@@ -36,7 +36,7 @@ def handle_file(file: Path) -> None:
         check_dest_move(file, dest_folder)
         return
     
-    if file.suffix ==".zip":
+    if file.suffix == ".zip":
         handle_zip(file)
 
 for file in BASE.iterdir():

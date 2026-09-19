@@ -88,7 +88,6 @@ Planned:
 - System tray support with `pystray`
 - Windows startup support
 - Smarter video sorting
-- One-click executable
 
 ## Project Structure
 
