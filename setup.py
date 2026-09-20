@@ -3,35 +3,35 @@ from pathlib import Path
 prod=0
 single_instance=1
 
-SOFTWARE = {
+SOFTWARE = (
     ".exe", ".msi", ".appx", ".deb", ".rpm", ".dmg",
     ".apk", ".bat", ".cmd", ".sh"
-}
+)
 
-COMPRESSED = {
+COMPRESSED = (
     ".rar", ".7z", ".tar", ".gz", ".bz2",
     ".xz", ".tar.gz", ".tar.bz2", ".tar.xz"
-}
+)
 
-VIDEOS = {
+VIDEOS = (
     ".mp4", ".mkv", ".avi", ".mov", ".wmv", ".flv",
     ".webm", ".m4v", ".mpeg", ".mpg", ".3gp", ".ts"
-}
+)
 
-DOCUMENTS = {
+DOCUMENTS = (
     ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
     ".txt", ".rtf", ".csv", ".odt", ".ods", ".odp"
-}
+)
 
-IMAGES = {
+IMAGES = (
     ".jpg", ".jpeg", ".png", ".webp", ".gif",
     ".bmp", ".svg", ".ico", ".tiff", ".tif"
-}
+)
 
-AUDIO = {
+AUDIO = (
     ".mp3", ".wav", ".flac", ".aac", ".ogg",
     ".m4a", ".wma", ".opus", ".aiff", ".ape"
-}
+)
 
 # production
 BASE = Path.home() / "Downloads"

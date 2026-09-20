@@ -6,28 +6,26 @@ from methods import move_file
 # handle every file
 def handle_file(file: Path) -> None:
     create_base()
-    dest_folder = None
+    dest_folder = None 
 
-    file_type = file.suffix
-
-    if file_type in SOFTWARE:
+    if file.name.endswith(SOFTWARE):
         dest_folder = software_path
-    elif file_type in COMPRESSED:
+    elif file.name.endswith(COMPRESSED):
         dest_folder = compressed_path
-    elif file_type in VIDEOS: # to be handled later in depth
+    elif file.name.endswith(VIDEOS): # to be handled later in depth
         dest_folder = videos_path
-    elif file_type in DOCUMENTS:
+    elif file.name.endswith(DOCUMENTS):
         dest_folder = documents_path
-    elif file_type in IMAGES:
+    elif file.name.endswith(IMAGES):
         dest_folder = images_path
-    elif file_type in AUDIO:
+    elif file.name.endswith(AUDIO):
         dest_folder = audios_path
 
     if dest_folder:
         move_file(file, dest_folder)
         return
     
-    if file.suffix == ".zip":
+    if file.name.endswith(".zip"):
         handle_zip(file)
 
 # sorting previous files before watchdog starts

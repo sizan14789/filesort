@@ -1,6 +1,6 @@
 from pathlib import Path
 from setup import BASE, VIDEOS, videos_path, zip_path, extracted_zip_path
-from zipfile import ZipFile
+from zipfile import ZipFile, is_zipfile
 import shutil
 from methods import move_file, get_unique_dest
 
@@ -53,6 +53,9 @@ def unzip_to_videos(zip_file):
 
 # handles zip files, including the decision making process
 def handle_zip(zip_file): 
+    if not is_zipfile(zip_file):
+        return
+    
     # parameter gathering for decision making
     top_level_video_count = videos_count = other_file_count = 0
     with ZipFile(zip_file, 'r') as z:
