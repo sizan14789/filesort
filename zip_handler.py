@@ -1,18 +1,10 @@
 from pathlib import Path
-from paths_types import BASE, VIDEOS, videos_path, zip_path, extracted_zip_path
+from setup import BASE, VIDEOS, videos_path, zip_path, extracted_zip_path
 from zipfile import ZipFile
 import shutil
+from methods import move_file, get_unique_dest
 
-# move zip
-def move_zip(zip_file, dest_path):
-    dest = dest_path / zip_file.name
-    i = 1
-    while dest.exists():
-        dest = dest_path / (f"{zip_file.stem}({i}){zip_file.suffix}")
-        i+=1
-    zip_file.rename(dest)
-
-# extracts the videos, nested or rooted, and moves them to videos
+# extracts videos, nested or rooted, and moves them to videos
 def unzip_to_videos_nested(zip_file): 
     temp_folder = BASE / "temp"
     temp_folder.mkdir(exist_ok = True)
@@ -22,38 +14,22 @@ def unzip_to_videos_nested(zip_file):
             if info.is_dir(): # ignore folders
                 continue
 
-            # get nonexisting file name using Path
-            as_path = Path(info.filename)
-            p1, p2 = as_path.stem, as_path.suffix
-            initial_file_name = final_file_name = p1 + p2
-            
-            i = 1
-            while (videos_path / final_file_name).exists():
-                final_file_name = f"{p1}({i}){p2}"
-                i+=1
-
             # extract and move
             extracted = Path(z.extract(info, temp_folder))
-            extracted.rename(videos_path / final_file_name)
+            extracted.rename(get_unique_dest(extracted, videos_path))
 
     shutil.rmtree(temp_folder)
 
-# extracts the entire zip content to a new folder and moves it to videos
+# extracts zip contents to a new folder and moves it to videos
 def unzip_to_new(zip_file):
-    # find nonexisting folder name inside videos
-    new_folder_path = videos_path / zip_file.stem
-    i = 1
-    while new_folder_path.exists():
-        new_folder_path = videos_path / (f"{zip_file.stem}({i})")
-        i+=1
+    new_folder_path = get_unique_dest(zip_file.parent / zip_file.stem, videos_path)
     
     # create and extract to new folder
-    new_folder_path.mkdir(exist_ok=True)
-    if new_folder_path.exists():
-        with ZipFile(zip_file, 'r') as z:
-            z.extractall(new_folder_path)
+    new_folder_path.mkdir(exist_ok=True) 
+    with ZipFile(zip_file, 'r') as z:
+        z.extractall(new_folder_path)
 
-# extracts the entire zip content directly to videos
+# extracts zip contents directly to videos
 def unzip_to_videos(zip_file):
     temp_folder = BASE / "temp"
     temp_folder.mkdir(exist_ok = True)
@@ -64,18 +40,18 @@ def unzip_to_videos(zip_file):
      
     # move, rename if file already exists
     for folder in temp_folder.iterdir():
-        folder_destination = videos_path / folder.name
+        # folder_destination = videos_path / folder.name
         
-        i = 1
-        while folder_destination.exists():
-            folder_destination = videos_path / (f"{folder.stem}({i}){folder.suffix}")
-            i+=1
+        # i = 1
+        # while folder_destination.exists():
+        #     folder_destination = videos_path / (f"{folder.stem}({i}){folder.suffix}")
+        #     i+=1
         
-        folder.rename(folder_destination)
+        folder.rename(get_unique_dest(folder, videos_path))
 
     temp_folder.rmdir()
 
-# handles the zip, including the decision making process
+# handles zip files, including the decision making process
 def handle_zip(zip_file): 
     # parameter gathering for decision making
     top_level_video_count = videos_count = other_file_count = 0
@@ -98,7 +74,7 @@ def handle_zip(zip_file):
 
     # decision making 
     if other_file_count > videos_count or not videos_count:
-        move_zip(zip_file, zip_path)
+        move_file(zip_file, zip_path)
         return
 
     # rooted / nested movie
@@ -114,4 +90,4 @@ def handle_zip(zip_file):
         unzip_to_new(zip_file)
     
     # move the remaining zip 
-    move_zip(zip_file, extracted_zip_path)
+    move_file(zip_file, extracted_zip_path)

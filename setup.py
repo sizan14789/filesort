@@ -1,6 +1,6 @@
 from pathlib import Path
 
-prod=1
+prod=0
 single_instance=1
 
 SOFTWARE = {
@@ -37,7 +37,7 @@ AUDIO = {
 BASE = Path.home() / "Downloads"
 
 # dev
-if env=="dev":
+if not prod:
     BASE = Path.cwd()
 
 # wallpaper, images, audio left

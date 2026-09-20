@@ -1,16 +1,7 @@
 from pathlib import Path
-from paths_types import prod, single_instance, BASE, SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, software_path, documents_path, compressed_path, images_path, audios_path, create_base
+from setup import prod, single_instance, BASE, SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, software_path, documents_path, compressed_path, images_path, audios_path, create_base
 from zip_handler import handle_zip
-
-# takes file and destination, checks if duplicate exists, renames and moves
-def check_dest_move(file: Path, dest_folder: Path) -> None:
-    dest = dest_folder / file.name
-    i = 1
-    while dest.exists():
-        dest = dest_folder / f"{file.stem}({i}){file.suffix}"
-        i+=1
-    
-    file.rename(dest)
+from methods import move_file
 
 # handle every file
 def handle_file(file: Path) -> None:
@@ -33,7 +24,7 @@ def handle_file(file: Path) -> None:
         dest_folder = audios_path
 
     if dest_folder:
-        check_dest_move(file, dest_folder)
+        move_file(file, dest_folder)
         return
     
     if file.suffix == ".zip":
