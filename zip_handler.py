@@ -1,7 +1,7 @@
 from pathlib import Path
 from setup import BASE, VIDEOS, videos_path, zip_path, extracted_zip_path
 from zipfile import ZipFile, is_zipfile
-import shutil
+from shutil import rmtree
 from methods import move_file, get_unique_dest
 
 # extracts videos, nested or rooted, and moves them to videos

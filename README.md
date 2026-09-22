@@ -93,8 +93,9 @@ Planned:
 
 FileSort/\
 ├── main.py\
-├── paths_types.py\
+├── setup.py\
 ├── zip_handler.py\
+├── methods.py\
 └── ...
 
 ## Tech Stack
