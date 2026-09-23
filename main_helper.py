@@ -2,9 +2,26 @@ from pathlib import Path
 from setup import SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, software_path, documents_path, compressed_path, images_path, audios_path, create_base
 from zip_handler import handle_zip
 from moving_methods import move_file
+from time import sleep
+
+def wait_till_ready(file: Path) -> bool:
+    while 1:
+        try:
+            with open(file, 'rb'):
+                return True
+        except PermissionError:
+            sleep(1)
+        except FileNotFoundError:
+            return False
 
 # handle every file
 def handle_file(file: Path) -> None:
+    if not file.exists(): 
+        return
+
+    if not wait_till_ready(file):
+        return
+    
     create_base()
     dest_folder = None 
 
