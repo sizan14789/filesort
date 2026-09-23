@@ -1,6 +1,6 @@
 from pathlib import Path
 
-prod=0
+prod=1
 single_instance=0
 
 SOFTWARE = (
