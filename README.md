@@ -37,8 +37,8 @@ ZIPs that are not extracted are kept in:
 Clone the repository:
 
 ```
-git clone <repository-url>
-cd FileSort
+git clone https://github.com/sizan14789/filesort.git
+cd filesort
 ```
 
 Install the required dependency:
