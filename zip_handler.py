@@ -2,7 +2,7 @@ from pathlib import Path
 from setup import BASE, VIDEOS, videos_path, zip_path, extracted_zip_path
 from zipfile import ZipFile, is_zipfile
 from shutil import rmtree
-from methods import move_file, get_unique_dest
+from moving_methods import move_file, get_unique_dest
 
 # extracts videos, nested or rooted, and moves them to videos
 def unzip_to_videos_nested(zip_file): 
@@ -18,7 +18,7 @@ def unzip_to_videos_nested(zip_file):
             extracted = Path(z.extract(info, temp_folder))
             extracted.rename(get_unique_dest(extracted, videos_path))
 
-    shutil.rmtree(temp_folder)
+    rmtree(temp_folder)
 
 # extracts zip contents to a new folder and moves it to videos
 def unzip_to_new(zip_file):

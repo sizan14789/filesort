@@ -8,8 +8,3 @@ class EventHandler(FileSystemEventHandler):
 
 watchman = Observer()
 watchman.schedule(EventHandler(), str(BASE), recursive=False)
-
-watchman.start()
-
-while True:
-    pass
