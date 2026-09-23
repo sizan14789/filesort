@@ -32,12 +32,19 @@ ZIPs that are not extracted are kept in:
 
 - Windows
 - Python 3.10+
+- watchdog
 
 Clone the repository:
 
 ```
 git clone <repository-url>
 cd FileSort
+```
+
+Install the required dependency:
+
+```
+pip install watchdog
 ```
 
 Run the program:
@@ -80,14 +87,14 @@ FileSort moves files out of the Downloads folder and extracts selected ZIP conte
 
 ## Current Status
 
-Currently, FileSort runs once and sorts the files already present in the Downloads folder.
+FileSort currently supports:
 
-Planned:
-
-- Background file monitoring with `watchdog`
-- System tray support with `pystray`
-- Windows startup support
-- Smarter video sorting
+- One-time sorting of existing Downloads files
+- Background file monitoring with watchdog
+- Automatic handling of newly downloaded or moved files
+- Duplicate filename handling
+- ZIP inspection and selective extraction
+- Separate organization for videos, documents, images, audio, software, and archives
 
 ## Project Structure
 
@@ -95,7 +102,9 @@ FileSort/\
 ├── main.py\
 ├── setup.py\
 ├── zip_handler.py\
-├── methods.py\
+├── moving_methods.py\
+├── main_helper.py\
+├── watchman.py\
 └── ...
 
 ## Tech Stack
@@ -104,6 +113,7 @@ FileSort/\
 - `pathlib`
 - `zipfile`
 - `shutil`
+- `watchdog`
 
 ## Customization
 
