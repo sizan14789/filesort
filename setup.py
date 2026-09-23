@@ -1,7 +1,7 @@
 from pathlib import Path
 
 prod=0
-single_instance=1
+single_instance=0
 
 SOFTWARE = (
     ".exe", ".msi", ".appx", ".deb", ".rpm", ".dmg",
