@@ -70,7 +70,7 @@ def handle_zip(zip_file):
         for path in all_zip_files:
             if path.is_dir():
                 continue
-            if path.suffix in VIDEOS:
+            if path.name.lower().endswith(VIDEOS):
                 videos_count+=1
             else: 
                 other_file_count+=1

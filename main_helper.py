@@ -8,22 +8,22 @@ def handle_file(file: Path) -> None:
     create_base()
     dest_folder = None 
 
-    if file.name.endswith(SOFTWARE):
+    if file.name.lower().endswith(SOFTWARE):
         dest_folder = software_path
-    elif file.name.endswith(COMPRESSED):
+    elif file.name.lower().endswith(COMPRESSED):
         dest_folder = compressed_path
-    elif file.name.endswith(VIDEOS): # to be handled later in depth
+    elif file.name.lower().endswith(VIDEOS): # to be handled later in depth
         dest_folder = videos_path
-    elif file.name.endswith(DOCUMENTS):
+    elif file.name.lower().endswith(DOCUMENTS):
         dest_folder = documents_path
-    elif file.name.endswith(IMAGES):
+    elif file.name.lower().endswith(IMAGES):
         dest_folder = images_path
-    elif file.name.endswith(AUDIO):
+    elif file.name.lower().endswith(AUDIO):
         dest_folder = audios_path
 
     if dest_folder:
         move_file(file, dest_folder)
         return
     
-    if file.name.endswith(".zip"):
+    if file.name.lower().endswith(".zip"):
         handle_zip(file)
