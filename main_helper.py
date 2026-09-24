@@ -4,6 +4,7 @@ from zip_handler import handle_zip
 from moving_methods import move_file
 from time import sleep
 
+# waits till the file is readable to avoid moving a file thats being transferred, if transfer fails midway..returns false to ignore the file
 def wait_till_ready(file: Path) -> bool:
     while 1:
         try:
