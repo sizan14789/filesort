@@ -1,9 +1,10 @@
+from pathlib import Path
+from setup import BASE
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from setup import BASE
 from main_helper import handle_file
-from pathlib import Path
 from time import sleep
+from threading import Timer
 
 class EventHandler(FileSystemEventHandler):
     def on_created(self, event): 
@@ -13,7 +14,7 @@ class EventHandler(FileSystemEventHandler):
         if event.is_directory:
             return
         
-        print(event.event_type, event.src_path, event.dest_path)
+        # print(event.event_type, event.src_path, event.dest_path)
         super().dispatch(event)
         
     def on_moved(self, event):
@@ -23,8 +24,8 @@ class EventHandler(FileSystemEventHandler):
         if file.parent != BASE:
             return
         
-        sleep(1) 
-        handle_file(file)
+        # delay to let the browser complete the download -> release cycle. Using threads to avoid blocking the watchdog
+        Timer(3, handle_file, (file,)).start()
         
 watchman = Observer()
 watchman.schedule(EventHandler(), str(BASE), recursive=False)
