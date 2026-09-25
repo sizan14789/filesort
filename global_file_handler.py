@@ -1,10 +1,13 @@
 from pathlib import Path
-from setup import SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, software_path, documents_path, compressed_path, images_path, audios_path, create_base
-from zip_handler import handle_zip
-from moving_methods import move_file
 from time import sleep
 
-# waits till the file is readable to avoid moving a file thats being transferred, if transfer fails midway..returns false to ignore the file
+# local imports
+from app_context import SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, software_path, documents_path, compressed_path, images_path, audios_path, create_base
+import app_context
+from zip_handler import handle_zip
+from app_context import move_file
+
+# waits till the file is readable to avoid moving a file thats being transferred, if transfer fails/stops midway...returns false to ignore the file
 def wait_till_ready(file: Path) -> bool:
     while 1:
         try:
@@ -15,11 +18,12 @@ def wait_till_ready(file: Path) -> bool:
         except FileNotFoundError:
             return False
 
-# handle every file
+# handle a file
 def handle_file(file: Path) -> None:
-    if not file.exists(): 
+    if app_context.paused or not file.exists(): 
         return
 
+    # wait till download/copying finishes, if file disappears before ignore it
     if not wait_till_ready(file):
         return
     

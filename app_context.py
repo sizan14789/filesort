@@ -1,7 +1,9 @@
 from pathlib import Path
 
 prod=1 
+paused=0
 
+# Extensions 
 SOFTWARE = (
     ".exe", ".msi", ".appx", ".deb", ".rpm", ".dmg",
     ".apk", ".bat", ".cmd", ".sh"
@@ -60,3 +62,17 @@ def create_base():
     audios_path.mkdir(exist_ok=True)
     zip_path.mkdir(exist_ok=True)
     extracted_zip_path.mkdir(exist_ok=True)
+
+# takes file path and destination, checks if duplicate exists, returns and unique address
+def get_unique_dest(file: Path, dest_folder: Path) -> Path:
+    dest = dest_folder / file.name
+    i = 1
+    while dest.exists():
+        dest = dest_folder / f"{file.stem}({i}){file.suffix}"
+        i+=1
+    
+    return dest
+
+# takes file path and destination, moves files
+def move_file(file, dest_folder):
+    file.rename(get_unique_dest(file, dest_folder))

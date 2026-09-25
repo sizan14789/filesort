@@ -1,9 +1,13 @@
 from pathlib import Path
-from setup import prod, single_instance, BASE
-from watchman import watchman
-from main_helper import handle_file
 from time import sleep
 
+# local imports
+from app_context import BASE
+from watchman import watchman
+from global_file_handler import handle_file
+from system_tray import app
+
+# sweep 1 and watchdog setup
 def sort_all_once():
     for file in BASE.iterdir():
         if file.is_file():
@@ -11,8 +15,7 @@ def sort_all_once():
 
 print("Watchman Live!")
 watchman.start()
-
 sort_all_once()
 
-while 1:
-    sleep(1)
+# System Tray setup
+app.run()

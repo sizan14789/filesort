@@ -100,11 +100,11 @@ FileSort currently supports:
 
 FileSort/\
 ├── main.py\
-├── setup.py\
+├── app_context.py\
+├── global_file_handler.py\
 ├── zip_handler.py\
-├── moving_methods.py\
-├── main_helper.py\
 ├── watchman.py\
+├── system_tray.py\
 └── ...
 
 ## Tech Stack
