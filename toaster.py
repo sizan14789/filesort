@@ -1,3 +1,5 @@
-from desktop_notifier import DesktopNotifier
+from pathlib import Path
+from desktop_notifier import DesktopNotifier, Icon
 
-notification_coroutine = DesktopNotifier().send(title="FileSort", message="Watchman Live!")
+# make the coroutine object
+notification_coroutine = DesktopNotifier(app_name="FileSort", app_icon=Icon(path=Path(__file__).parent / "assets" / "icon.ico")).send(title="FileSort", message="Watchman Live!")

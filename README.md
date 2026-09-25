@@ -58,7 +58,7 @@ python main.py
 Compile Command:
 
 ```
-pyinstaller --onefile --name "FileSort test" --icon="assets/icon.ico" --add-data "assets/icon.ico;assets"  main.py
+pyinstaller --onefile --noconsole --name "FileSort test" --icon="assets/icon.ico" --add-data "assets/icon.ico;assets" --collect-all desktop_notifier main.py
 ```
 
 ## Folder Structure
