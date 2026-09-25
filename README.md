@@ -44,7 +44,7 @@ cd filesort
 Install the required dependency:
 
 ```
-pip install watchdog pystray pillow
+pip install watchdog pystray pillow desktop-notifier
 ```
 
 Run the program:
@@ -120,6 +120,7 @@ FileSort/\
 - `zipfile`
 - `shutil`
 - `watchdog`
+- `desktop-notifier`
 
 ## Customization
 
