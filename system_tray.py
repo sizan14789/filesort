@@ -1,12 +1,13 @@
 from PIL import Image
 import pystray
+from pathlib import Path
 
 # local imports
 import app_context 
 
 # pillow image object
-image = Image.open("assets/icon.ico")
-
+image = Image.open(Path(__file__).parent / "assets" / "icon.ico")
+ 
 # menu methods
 def on_exit(icon, item):
     icon.stop()

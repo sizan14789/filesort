@@ -44,7 +44,7 @@ cd filesort
 Install the required dependency:
 
 ```
-pip install watchdog
+pip install watchdog pystray pillow
 ```
 
 Run the program:
@@ -54,6 +54,12 @@ python main.py
 ```
 
 **Downloads folder:** FileSort works with the standard default Downloads folder on Windows, Linux, and macOS. If your Downloads folder has been moved to another location, such as OneDrive or another drive, FileSort may not detect it correctly.
+
+Compile Command:
+
+```
+pyinstaller --onefile --name "FileSort test" --icon="assets/icon.ico" --add-data "assets/icon.ico;assets"  main.py
+```
 
 ## Folder Structure
 
