@@ -41,14 +41,7 @@ def unzip_to_videos(zip_file):
         z.extractall(temp_folder)
      
     # move, rename if file already exists
-    for folder in temp_folder.iterdir():
-        # folder_destination = videos_path / folder.name
-        
-        # i = 1
-        # while folder_destination.exists():
-        #     folder_destination = videos_path / (f"{folder.stem}({i}){folder.suffix}")
-        #     i+=1
-        
+    for folder in temp_folder.iterdir(): 
         folder.rename(get_unique_dest(folder, videos_path))
 
     temp_folder.rmdir()

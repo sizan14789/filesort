@@ -1,10 +1,12 @@
 from pathlib import Path
-from app_context import BASE
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from global_file_handler import handle_file
 from time import sleep
 from threading import Timer
+
+# local imports
+from app_context import BASE
+from global_file_handler import handle_file
 
 # Class for event handling object used by watchdog
 class EventHandler(FileSystemEventHandler):
