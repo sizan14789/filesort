@@ -104,6 +104,36 @@ python main.py
 
 PyInstaller builds are platform-specific, so Linux and macOS executables must be built separately on their respective platforms.
 
+## Startup Setup
+
+To start FileSort automatically when the computer starts:
+
+### Windows
+
+1. Keep the FileSort executable in a permanent location. Do not move the executable into the Startup folder.
+
+2. Right-click the executable and select **Create shortcut**.
+
+3. Press **Win + R** and enter:
+
+   `shell:startup`
+
+4. Press **Enter** to open the Windows Startup folder.
+
+5. Move the FileSort shortcut into the Startup folder.
+
+6. Restart Windows to verify that FileSort starts automatically.
+
+To disable automatic startup, simply remove the FileSort shortcut from the Startup folder or disable it from **Settings/Apps/Startup**
+
+### Linux
+
+After building the FileSort executable, you can configure it to start automatically using your desktop environment's Startup Applications settings or a user-level systemd service.
+
+### macOS
+
+After building the FileSort executable, you can add it to System Settings → General → Login Items to start it automatically when you log in.
+
 ## Project Structure
 
 ```text
