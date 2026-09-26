@@ -19,6 +19,6 @@ def sort_all_and_start():
 print("Watchman Live!")
 sort_all_and_start()
 
-# System Tray setup
+# Notification and System Tray setup
 asyncio.run(notification_coroutine)
 app.run()

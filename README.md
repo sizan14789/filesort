@@ -1,79 +1,14 @@
 # FileSort
 
-A Python file organizer for Windows that sorts files in the Downloads folder into separate folders based on their type.
+A Python file organizer that automatically sorts files in your Downloads folder by type.
 
-## What it does
+## Problem Statement
 
-FileSort detects common file types and moves them into organized folders. It also handles duplicate filenames and ZIP files containing videos.
+The Downloads folder can quickly become cluttered with videos, images, documents, audio, software, and archive files.
 
-### ZIP handling
+FileSort automatically organizes these files into separate folders and handles duplicate filenames and selected ZIP extraction.
 
-FileSort inspects the contents of a ZIP before deciding what to do with it:
-
-- **ZIP with more non-video files than videos** → the ZIP is moved to `zip/` without extraction.
-- **Single video, whether directly in the ZIP or inside a folder** → the video is extracted to `videos/`.
-- **Multiple videos inside a folder** → the ZIP contents are extracted into a new folder inside `videos/`.
-- **Multiple videos directly at the ZIP root** → the ZIP contents are extracted into a new folder inside `videos/`.
-- **ZIP containing both root-level and nested videos** → the contents are extracted into a new folder inside `videos/`.
-
-After a ZIP is processed, the original ZIP is kept in:
-
-`Downloads/compressed/extracted_zips/`
-
-ZIPs that are not extracted are kept in:
-
-`Downloads/zip/`
-
-**Note:** ZIP extraction is currently supported. Other archive extensions such as `.rar` and `.7z` are recognized as archive files but are not extracted by the current implementation.
-
-## Installation
-
-### Requirements
-
-- Windows
-- Python 3.10+
-- watchdog
-
-Clone the repository:
-
-```
-git clone https://github.com/sizan14789/filesort.git
-cd filesort
-```
-
-Install the required dependency:
-
-```
-pip install watchdog pystray pillow desktop-notifier
-```
-
-Run the program:
-
-```
-python main.py
-```
-
-**Downloads folder:** FileSort works with the standard default Downloads folder on Windows, Linux, and macOS. If your Downloads folder has been moved to another location, such as OneDrive or another drive, FileSort may not detect it correctly.
-
-Compile Command:
-
-```
-pyinstaller --onefile --noconsole --name "FileSort test" --icon="assets/icon.ico" --add-data "assets/icon.ico;assets" --collect-all desktop_notifier main.py
-```
-
-## Folder Structure
-
-Downloads/\
-├── videos/\
-├── documents/\
-├── images/\
-├── audios/\
-├── software/\
-├── compressed/\
-│ └── extracted_zips/\
-└── zip/
-
-## Supported Formats
+## Supported Extensions
 
 **Videos:** `mp4`, `mkv`, `avi`, `mov`, `wmv`, `flv`, `webm`, `m4v`, `mpeg`, `mpg`, `3gp`, `ts`
 
@@ -87,43 +22,94 @@ Downloads/\
 
 **Archives:** `zip`, `rar`, `7z`, `tar`, `gz`, `bz2`, `xz`
 
-## Important
+## ZIP Rules
 
-FileSort moves files out of the Downloads folder and extracts selected ZIP contents. Make sure you understand the sorting rules before running it on important files.
+FileSort inspects the contents of a ZIP before deciding how to handle it.
 
-## Current Status
+- **More non-video files than videos** → ZIP is moved to `zip/` without extraction.
+- **One video** → video is extracted to `videos/`, whether it is at the ZIP root or inside a folder.
+- **Multiple videos inside a folder** → ZIP contents are extracted into a new folder inside `videos/`.
+- **Multiple videos at the ZIP root** → ZIP contents are extracted into a new folder inside `videos/`.
+- **Root-level and nested videos** → ZIP contents are extracted into a new folder inside `videos/`.
 
-FileSort currently supports:
+Processed ZIP files are kept in:
 
-- One-time sorting of existing Downloads files
-- Background file monitoring with watchdog
-- Automatic handling of newly downloaded or moved files
-- Duplicate filename handling
-- ZIP inspection and selective extraction
-- Separate organization for videos, documents, images, audio, software, and archives
+```text
+Downloads/
+└── compressed/
+    └── extracted_zips/
+```
+
+ZIP files that are not extracted are kept in:
+
+```text
+Downloads/
+└── zip/
+```
+
+Only ZIP files are extracted. Other archive formats are recognized and moved to the archive location but are not extracted.
+
+## Installation
+
+### Requirements
+
+- Windows
+- Python 3.10+
+- watchdog
+- pystray
+- Pillow
+- desktop-notifier
+
+Clone the repository:
+
+```bash
+git clone https://github.com/sizan14789/filesort.git
+cd filesort
+```
+
+Install dependencies:
+
+```bash
+pip install watchdog pystray pillow desktop-notifier
+```
+
+Run:
+
+```bash
+python main.py
+```
+
+FileSort uses the standard `Downloads` folder of the current user.
+
+### Build Executable
+
+```bash
+pyinstaller --onefile --noconsole --name "FileSort" --icon="assets/icon.ico" --add-data "assets/icon.ico;assets" --collect-all desktop_notifier main.py
+```
 
 ## Project Structure
 
-FileSort/\
-├── main.py\
-├── app_context.py\
-├── global_file_handler.py\
-├── zip_handler.py\
-├── watchman.py\
-├── system_tray.py\
+```text
+FileSort/
+├── main.py
+├── app_context.py
+├── global_file_handler.py
+├── zip_handler.py
+├── watchman.py
+├── system_tray.py
+├── toaster.py
 └── ...
+```
 
-## Tech Stack
+## Contribution
 
-- Python
-- `pathlib`
-- `zipfile`
-- `shutil`
-- `watchdog`
-- `desktop-notifier`
+Contributions are welcome. Fork the repository, make your changes, and submit a pull request.
 
-## Customization
+## Bug Reports
 
-FileSort is a personal project, but anyone can fork it and make their own version.
+If you find a bug, please open an issue with:
 
-You can modify the supported extensions, folder structure, sorting rules, and archive handling to fit your needs.
+- A description of the problem
+- Steps to reproduce it
+- Relevant error messages or screenshots
+- Your OS and Python version
