@@ -87,6 +87,23 @@ FileSort uses the standard `Downloads` folder of the current user.
 pyinstaller --onefile --noconsole --name "FileSort" --icon="assets/icon.ico" --add-data "assets/icon.ico;assets" --collect-all desktop_notifier main.py
 ```
 
+## Platform Support
+
+### Windows
+
+A ready-to-use Windows executable is provided with each release.
+
+### Linux / macOS
+
+No pre-built executable is currently provided. You can run FileSort from the source code by installing the dependencies and running:
+
+```bash
+pip install watchdog pystray pillow desktop-notifier
+python main.py
+```
+
+PyInstaller builds are platform-specific, so Linux and macOS executables must be built separately on their respective platforms.
+
 ## Project Structure
 
 ```text
@@ -98,7 +115,8 @@ FileSort/
 ├── watchman.py
 ├── system_tray.py
 ├── toaster.py
-└── ...
+└── assets/
+    └── icon.ico
 ```
 
 ## Contribution
