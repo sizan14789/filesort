@@ -43,25 +43,25 @@ if not prod:
 
 # wallpaper, images, audio left
 videos_path = BASE / "videos"
-software_path = BASE / "software"
+softwares_path = BASE / "softwares"
 documents_path = BASE / "documents"
 compressed_path = BASE / "compressed"
 images_path = BASE / "images"
 audios_path = BASE / "audios"
 
-extracted_zip_path = compressed_path / "extracted_zips"
-zip_path = BASE / "zip"
+extracted_archives_path = compressed_path / "extracted_archives"
+archives_path = BASE / "archives"
 
 # creates base folder in  case they don't exist
 def create_base():
     videos_path.mkdir(exist_ok=True)
-    software_path.mkdir(exist_ok=True)
+    softwares_path.mkdir(exist_ok=True)
     documents_path.mkdir(exist_ok=True)
     compressed_path.mkdir(exist_ok=True)
     images_path.mkdir(exist_ok=True)
     audios_path.mkdir(exist_ok=True)
-    zip_path.mkdir(exist_ok=True)
-    extracted_zip_path.mkdir(exist_ok=True)
+    archives_path.mkdir(exist_ok=True)
+    extracted_archives_path.mkdir(exist_ok=True)
 
 # takes file path and destination, checks if duplicate exists, returns and unique address
 def get_unique_dest(file: Path, dest_folder: Path) -> Path:

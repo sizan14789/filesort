@@ -2,7 +2,7 @@ from pathlib import Path
 from time import sleep
 
 # local imports
-from app_context import SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, software_path, documents_path, compressed_path, images_path, audios_path, create_base
+from app_context import SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, softwares_path, documents_path, compressed_path, images_path, audios_path, create_base
 import app_context
 from zip_handler import handle_zip
 from app_context import move_file
@@ -20,7 +20,7 @@ def wait_till_ready(file: Path) -> bool:
 
 # handle a file
 def handle_file(file: Path) -> None:
-    if app_context.paused or not file.exists(): 
+    if app_context.paused or not file.exists() or file.name.startswith("FileSort"):
         return
 
     # wait till download/copying finishes, if file disappears before ignore it
@@ -31,7 +31,7 @@ def handle_file(file: Path) -> None:
     dest_folder = None 
 
     if file.name.lower().endswith(SOFTWARE):
-        dest_folder = software_path
+        dest_folder = softwares_path
     elif file.name.lower().endswith(COMPRESSED):
         dest_folder = compressed_path
     elif file.name.lower().endswith(VIDEOS): # to be handled later in depth

@@ -2,7 +2,7 @@ from pathlib import Path
 from shutil import rmtree
 
 # local imports
-from app_context import BASE, VIDEOS, videos_path, zip_path, extracted_zip_path
+from app_context import BASE, VIDEOS, videos_path, archives_path, extracted_archives_path
 from zipfile import ZipFile, is_zipfile
 from app_context import move_file, get_unique_dest
 
@@ -72,7 +72,7 @@ def handle_zip(zip_file):
 
     # decision making 
     if other_file_count > videos_count or not videos_count:
-        move_file(zip_file, zip_path)
+        move_file(zip_file, archives_path)
         return
 
     # rooted / nested movie
@@ -88,4 +88,4 @@ def handle_zip(zip_file):
         unzip_to_new(zip_file)
     
     # move the remaining zip 
-    move_file(zip_file, extracted_zip_path)
+    move_file(zip_file, extracted_archives_path)
