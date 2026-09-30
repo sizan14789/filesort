@@ -1,5 +1,10 @@
 from pathlib import Path
 from desktop_notifier import DesktopNotifier, Icon
+import asyncio
 
-# make the coroutine object
-notification_coroutine = DesktopNotifier(app_name="FileSort", app_icon=Icon(path=Path(__file__).parent / "assets" / "icon.ico")).send(title="FileSort", message="Watchman Live!")
+# apps notification object
+notification_object = DesktopNotifier(app_name="FileSort", app_icon=Icon(path=Path(__file__).parent / "assets" / "icon.ico"))
+
+# notification sender function
+def send_notification(message, title="FileSort"):
+    asyncio.run(notification_object.send(title=title, message=message))

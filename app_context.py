@@ -1,6 +1,6 @@
 from pathlib import Path
 
-prod=1
+prod=0
 paused=0
 
 # Extensions 

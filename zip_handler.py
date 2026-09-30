@@ -5,6 +5,7 @@ from shutil import rmtree
 from app_context import BASE, VIDEOS, videos_path, archives_path, extracted_archives_path
 from zipfile import ZipFile, is_zipfile
 from app_context import move_file, get_unique_dest
+from toaster import send_notification
 
 # extracts videos, nested or rooted, and moves them to videos
 def unzip_to_videos_nested(zip_file: Path)-> None: 
@@ -52,8 +53,13 @@ def is_protected(zip_file: Path)-> bool:
         return any(item.flag_bits & 1 for item in z.infolist())
 
 # handles zip files, including the decision making process
-def handle_zip(zip_file: Path): 
-    if not is_zipfile(zip_file) or is_protected(zip_file):
+def handle_zip(zip_file: Path) -> None: 
+    if not is_zipfile(zip_file):
+        send_notification(title=str(zip_file.name) , message="Corrupted zip")
+        return
+
+    if is_protected(zip_file):
+        send_notification(title=str(zip_file.name) , message="Protected by password")
         return
 
     # parameter gathering for decision making
