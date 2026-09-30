@@ -4,7 +4,7 @@ import sys
 
 # prevent multiple instances of FileSort running at once, for windows only
 if sys.platform == "win32":
-    import mutex_file
+    import mutex
 
 # local imports
 from app_context import BASE, prod

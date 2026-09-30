@@ -16,15 +16,15 @@ def toggle_state(icon, item):
     app_context.paused = not app_context.paused
     icon.update_menu()
 
-def clear_extracted_archive(icon, item):
-    pass
+# def clear_extracted_archive(icon, item):
+#     pass
 
 # Tray Menu UI object
 menu = pystray.Menu(
     pystray.MenuItem("FileSort", None, enabled=False),
     pystray.Menu.SEPARATOR,
     pystray.MenuItem(lambda item: "Pause" if not app_context.paused else "Resume", toggle_state),
-    pystray.MenuItem("Clear Extracted Archives", clear_extracted_archive),
+    # pystray.MenuItem("Clear Extracted Archives", clear_extracted_archive),
     pystray.MenuItem("Exit", on_exit)
 )
 
