@@ -3,7 +3,7 @@ from time import sleep
 import asyncio
 
 # local imports
-from app_context import BASE
+from app_context import BASE, prod
 from watchman import watchman
 from global_file_handler import handle_file
 from system_tray import app
@@ -20,5 +20,10 @@ print("Watchman Live!")
 sort_all_and_start()
 
 # Notification and System Tray setup 
-asyncio.run(notification_coroutine) 
-app.run()
+asyncio.run(notification_coroutine)
+
+if prod:
+    app.run()
+else:
+    while 1:
+        pass

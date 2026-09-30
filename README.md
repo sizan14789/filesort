@@ -40,7 +40,7 @@ Downloads/
     └── extracted_zips/
 ```
 
-ZIP files that are not extracted are kept in:
+ZIP files that are not extracted (Zips that are not video heavy) are kept in:
 
 ```text
 Downloads/
@@ -48,6 +48,8 @@ Downloads/
 ```
 
 Only ZIP files are extracted. Other archive formats are recognized and moved to the archive location but are not extracted.
+
+**Exception:** Corrupt/password protected zip files are left untouched.
 
 ## Installation
 
@@ -110,7 +112,7 @@ To start FileSort automatically when the computer starts:
 
 ### Windows
 
-1. Keep the FileSort executable in a permanent location. Do not move the executable into the Startup folder.
+1. Keep the FileSort executable in a **permanent** location. Do not move the executable into the Startup folder.
 
 2. Right-click the executable and select **Create shortcut**.
 
@@ -123,6 +125,10 @@ To start FileSort automatically when the computer starts:
 5. Move the FileSort shortcut into the Startup folder.
 
 6. Restart Windows to verify that FileSort starts automatically.
+
+```text
+Note: Once setup is done, do not move FileSort executable
+```
 
 To disable automatic startup, simply remove the FileSort shortcut from the Startup folder or disable it from **Settings/Apps/Startup**
 
