@@ -36,7 +36,7 @@ Processed ZIP files are kept in:
 
 ```text
 Downloads/
-└── compressed/
+└── ARCHIVES/
     └── extracted_zips/
 ```
 

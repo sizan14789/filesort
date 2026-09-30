@@ -1,6 +1,6 @@
 from pathlib import Path
 
-prod=1 
+prod=0 
 paused=0
 
 # Extensions 
@@ -9,7 +9,7 @@ SOFTWARE = (
     ".apk", ".bat", ".cmd", ".sh"
 )
 
-COMPRESSED = (
+ARCHIVES = (
     ".rar", ".7z", ".tar", ".gz", ".bz2",
     ".xz", ".tar.gz", ".tar.bz2", ".tar.xz"
 )
@@ -44,20 +44,18 @@ if not prod:
 # wallpaper, images, audio left
 videos_path = BASE / "videos"
 softwares_path = BASE / "softwares"
-documents_path = BASE / "documents"
-compressed_path = BASE / "compressed"
+documents_path = BASE / "documents" 
 images_path = BASE / "images"
 audios_path = BASE / "audios"
 
-extracted_archives_path = compressed_path / "extracted_archives"
 archives_path = BASE / "archives"
+extracted_archives_path = archives_path / "extracted_archives"
 
 # creates base folder in  case they don't exist
 def create_base():
     videos_path.mkdir(exist_ok=True)
     softwares_path.mkdir(exist_ok=True)
-    documents_path.mkdir(exist_ok=True)
-    compressed_path.mkdir(exist_ok=True)
+    documents_path.mkdir(exist_ok=True) 
     images_path.mkdir(exist_ok=True)
     audios_path.mkdir(exist_ok=True)
     archives_path.mkdir(exist_ok=True)

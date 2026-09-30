@@ -7,7 +7,7 @@ from zipfile import ZipFile, is_zipfile
 from app_context import move_file, get_unique_dest
 
 # extracts videos, nested or rooted, and moves them to videos
-def unzip_to_videos_nested(zip_file): 
+def unzip_to_videos_nested(zip_file: Path)-> None: 
     temp_folder = BASE / "temp"
     temp_folder.mkdir(exist_ok = True)
 
@@ -23,7 +23,7 @@ def unzip_to_videos_nested(zip_file):
     rmtree(temp_folder)
 
 # extracts zip contents to a new folder and moves it to videos
-def unzip_to_new(zip_file):
+def unzip_to_new(zip_file: Path)-> None:
     new_folder_path = get_unique_dest(zip_file.parent / zip_file.stem, videos_path)
     
     # create and extract to new folder
@@ -32,7 +32,7 @@ def unzip_to_new(zip_file):
         z.extractall(new_folder_path)
 
 # extracts zip contents directly to videos
-def unzip_to_videos(zip_file):
+def unzip_to_videos(zip_file: Path)-> None:
     temp_folder = BASE / "temp"
     temp_folder.mkdir(exist_ok = True)
 
@@ -46,11 +46,16 @@ def unzip_to_videos(zip_file):
 
     temp_folder.rmdir()
 
+# check password protection
+def is_protected(zip_file: Path)-> bool:
+    with ZipFile(zip_file, 'r') as z:
+        return any(item.flag_bits & 1 for item in z.infolist())
+
 # handles zip files, including the decision making process
-def handle_zip(zip_file): 
-    if not is_zipfile(zip_file):
+def handle_zip(zip_file: Path): 
+    if not is_zipfile(zip_file) or is_protected(zip_file):
         return
-    
+
     # parameter gathering for decision making
     top_level_video_count = videos_count = other_file_count = 0
     with ZipFile(zip_file, 'r') as z:

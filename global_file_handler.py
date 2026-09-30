@@ -2,7 +2,7 @@ from pathlib import Path
 from time import sleep
 
 # local imports
-from app_context import SOFTWARE, COMPRESSED, VIDEOS, DOCUMENTS, IMAGES, AUDIO, videos_path, softwares_path, documents_path, compressed_path, images_path, audios_path, create_base
+from app_context import SOFTWARE, VIDEOS, DOCUMENTS, IMAGES, ARCHIVES, AUDIO, videos_path, softwares_path, documents_path, images_path, audios_path, create_base
 import app_context
 from zip_handler import handle_zip
 from app_context import move_file
@@ -32,8 +32,8 @@ def handle_file(file: Path) -> None:
 
     if file.name.lower().endswith(SOFTWARE):
         dest_folder = softwares_path
-    elif file.name.lower().endswith(COMPRESSED):
-        dest_folder = compressed_path
+    elif file.name.lower().endswith(ARCHIVES):
+        dest_folder = archives_path
     elif file.name.lower().endswith(VIDEOS): # to be handled later in depth
         dest_folder = videos_path
     elif file.name.lower().endswith(DOCUMENTS):
