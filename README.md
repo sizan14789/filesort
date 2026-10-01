@@ -1,12 +1,31 @@
 # FileSort
 
-A Python file organizer that automatically sorts files in your Downloads folder by type.
+A Python file organizer that automatically organizes your Downloads folder and monitors it in the background for new files.
 
 ## Problem Statement
 
 The Downloads folder can quickly become cluttered with videos, images, documents, audio, software, and archive files.
 
-FileSort automatically organizes these files into separate folders and handles duplicate filenames and selected Archive extraction.
+FileSort automatically organizes these files into separate folders and handles duplicate filenames and intelligent ZIP extraction.
+
+## Download
+
+Windows users can download the latest installer from the [Releases](https://github.com/sizan14789/filesort/releases) page.
+
+If you prefer the portable version, the standalone executable is also available there.
+
+## Features
+
+- **Automatic File Sorting** — Organizes files in your Downloads folder by type.
+- **Background Monitoring** — Automatically detects and sorts newly downloaded or moved files.
+- **Duplicate Handling** — Renames files automatically when a file with the same name already exists.
+- **ZIP File Processing** — Inspects ZIP files and extracts video content based on the archive structure.
+- **Archive Organization** — Keeps processed and unprocessed archive files in separate folders.
+- **System Tray Support** — Runs quietly in the background with Pause/Resume and Exit controls.
+- **Desktop Notifications** — Notifies you when FileSort starts and when certain archive problems are detected.
+- **Single Instance** — Prevents multiple FileSort processes from running at the same time.
+- **Windows Startup** — Can start automatically with Windows after installation.
+- **Local Processing** — Files are processed locally without uploading them to an external service.
 
 ## Supported Extensions
 
@@ -22,17 +41,17 @@ FileSort automatically organizes these files into separate folders and handles d
 
 **Archives:** `zip`, `rar`, `7z`, `tar`, `gz`, `bz2`, `xz`
 
-## Archive Rules — ZIP ONLY
+## Archive Rules
 
-FileSort inspects the contents of an archive before deciding how to handle it.
+FileSort recognizes several archive formats, but currently only extracts ZIP files.
 
-- **More non-video files than videos** → Archive is moved to `archives/` without extraction.
-- **One video** → video is extracted to `videos/`, whether it is at the Archive root or inside a folder.
-- **Multiple videos inside a folder** → Archive contents are extracted into a new folder inside `videos/`.
-- **Multiple videos at the Archive root** → Archive contents are extracted into a new folder inside `videos/`.
-- **Root-level and nested videos** → Archive contents are extracted into a new folder inside `videos/`.
+- **More non-video files than videos** → archive is moved to `archives/` without extraction.
+- **One video** → video is extracted to `videos/`, whether it is at the archive root or inside a folder.
+- **Multiple videos inside a folder** → archive contents are extracted into a new folder inside `videos/`.
+- **Multiple videos at the archive root** → archive contents are extracted into a new folder inside `videos/`.
+- **Root-level and nested videos** → archive contents are extracted into a new folder inside `videos/`.
 
-Processed Archive files are kept in:
+Processed archive files are kept in:
 
 ```text
 Downloads/
@@ -40,7 +59,7 @@ Downloads/
     └── extracted_archives/
 ```
 
-Archive files that are not extracted (Archives that are not video heavy) are kept in:
+Archives that are not extracted are kept in:
 
 ```text
 Downloads/
@@ -55,7 +74,7 @@ Only ZIP files are extracted. Other archive formats are recognized and moved to 
 
 ### Windows
 
-A ready-to-use Windows executable is provided with each release. Checkout the release section, ans then the **Startup Setup** section below later.
+A ready-to-use Windows executable is available in the releases. See the Startup Setup section below for automatic startup configuration.
 
 ### Linux / macOS
 
@@ -67,7 +86,6 @@ No pre-built executable is currently provided. PyInstaller builds are platform-s
 
 ### Requirements
 
-- Windows
 - Python 3.10+
 - watchdog
 - pystray
@@ -98,48 +116,9 @@ FileSort uses the standard `Downloads` folder of the current user.
 ### Build Executable
 
 ```bash
+pip install pyinstaller
 pyinstaller --onefile --noconsole --name "FileSort" --icon="assets/icon.ico" --add-data "assets/icon.ico;assets" --collect-all desktop_notifier main.py
 ```
-
-## Startup Setup
-
-To start FileSort automatically when the computer starts:
-
-### Windows
-
-```
-Setup executable for windows on progress, soon to be released.
-```
-
-Till then, do as below —
-
-1. Keep the FileSort executable in a **permanent** location. Do not move the executable into the Startup folder.
-
-2. Right-click the executable and select **Create shortcut**.
-
-3. Press **Win + R** and enter:
-
-   `shell:startup`
-
-4. Press **Enter** to open the Windows Startup folder.
-
-5. Move the FileSort shortcut into the Startup folder.
-
-6. Restart Windows to verify that FileSort starts automatically.
-
-```text
-Note: Once setup is done, do not move FileSort executable
-```
-
-To disable automatic startup, simply remove the FileSort shortcut from the Startup folder or disable it from **Settings/Apps/Startup**
-
-### Linux
-
-After building the FileSort executable, you can configure it to start automatically using your desktop environment's Startup Applications settings or a user-level systemd service. If you are on Linux and can compile the program, I believe you can setup "Start at startup" as well.
-
-### macOS
-
-After building the FileSort executable, you can add it to System Settings → General → Login Items to start it automatically when you log in.
 
 ## Project Structure
 
@@ -159,11 +138,7 @@ FileSort/
 
 ## Privacy
 
-FileSort is completely local/offline. Therefore your privacy is 100% protected.
-
-## Contribution
-
-Contributions are welcome. Fork the repository, make your changes, and submit a pull request.
+FileSort processes files locally and does not upload or transmit your files.
 
 ## Bug Reports
 
@@ -176,6 +151,7 @@ If you find a bug, please open an issue with:
 
 ## Author
 
-Sizan Molla
+**Sizan Molla**
 
-sizanalt@gmail.com
+- GitHub: [sizan14789](https://github.com/sizan14789)
+- Email: sizanalt@gmail.com
